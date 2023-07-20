@@ -1,0 +1,26 @@
+/* Custom FeedbackScreen.css */
+
+/* Center the feedback form vertically */
+.feedback-form {
+    margin-top: 100px;
+  }
+  
+  /* Styling for the header */
+  .feedback-form h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #007bff;
+  }
+  
+  /* Style the submit button */
+  .submit-btn {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  /* Add some spacing between form fields */
+  .feedback-form .form-group {
+    margin-bottom: 20px;
+  }
+  

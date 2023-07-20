@@ -1,0 +1,26 @@
+/* Custom AboutScreen.css */
+
+/* Center the about content vertically */
+.about-content {
+    margin-top: 100px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  /* Styling for the header */
+  .about-content h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #007bff;
+  }
+  
+  /* Add some spacing between paragraphs */
+  .about-content p {
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
