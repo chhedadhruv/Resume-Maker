@@ -11,6 +11,7 @@ import ContactScreen from './screens/ContactScreen';
 import FeedbackScreen from './screens/FeedbackScreen';
 import AboutScreen from './screens/AboutScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import TemplatesScreen from './screens/TemplatesScreen';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -79,11 +80,12 @@ function App() {
       <Routes>
         <Route path='/login' element={<LoginScreen setIsAuth={setIsAuth} />} />
         <Route path='/signup' element={<SignupScreen setIsAuth={setIsAuth} />} />
-        <Route exact path='/' element={<HomeScreen />} />
+        <Route exact path='/' element={<HomeScreen isAuth={isAuth} />} />
         <Route path='/contact' element={<ContactScreen />} />
         <Route path='/feedback' element={<FeedbackScreen />} />
         <Route path='/about' element={<AboutScreen />} />
         <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/templates' element={<TemplatesScreen />} />
       </Routes>
     </Router>
   )

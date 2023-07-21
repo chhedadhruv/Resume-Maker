@@ -1,95 +1,95 @@
-/* Custom LoginScreen.css */
-
-/* Background color and font styles */
+/* LoginScreen.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    /* background-color: #f4f4f4; */
-  }
-  
-  /* Center the login form vertically */
-  .login-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* Styling for the login form container */
-  .login-form-container {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 800px;
-    width: 100%;
-    display: flex;
-  }
-  
-  /* Styling for the header */
-  .login-form-container h2 {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 30px;
-    color: #007bff;
-  }
-  
-  /* Add some spacing to the form inputs */
-  .login-form-group {
-    margin-bottom: 20px;
-  }
-  
-  /* Style the login button */
-  .login-btn {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  /* Style the "Sign in with Google" button */
-  .google-btn {
-    width: 100%;
-  }
-  
-  /* Style the "Don't have an account?" link */
-  .login-link {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .login-link a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .login-link a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Style the error message */
-  .login-alert {
-    margin-bottom: 20px;
-  }
-  
-  /* Styling for the informative texts */
-  .login-info {
-    padding: 30px;
-    background-color: #007bff;
-    color: #fff;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .login-info h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  .login-info p {
-    font-size: 18px;
-    line-height: 1.6;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.login-screen {
+  padding: 40px 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-image: url(../assets/bg.png); */
+  /* background-size: cover; */
+  /* background-repeat: no-repeat; */
+  /* opacity: 1; */
+  /* background-position: center; */
+}
+
+.login-card {
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-card .card-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  /* margin-left: 50%;
+  margin-right: 50%; */
+}
+
+.login-card .form-group {
+  margin-bottom: 20px;
+}
+
+.login-card .form-label {
+  font-weight: bold;
+}
+
+.login-card .login-btn {
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.login-card .google-btn {
+  width: 100%;
+}
+
+.login-card .login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-card .login-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-card .login-link a:hover {
+  text-decoration: underline;
+}
+
+.bg-image {
+  /* The image used */
+  background-image: url(../assets/bg.png);
+  margin-top: 20px;
+
+  /* Add the blur effect */
+  /* filter: blur(8px); */
+  /* -webkit-filter: blur(8px); */
+
+  /* Full height */
+  height: 90vh;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.5;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -3,10 +3,12 @@
 /* Center the about content vertically */
 .about-content {
     margin-top: 100px;
-    background-color: #f7f7f7;
+    background-color: rgb(247, 247, 247);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 30px;
+    border: solid;
+    border-color: #0f55a0;
   }
   
   /* Styling for the header */
@@ -24,3 +26,10 @@
     line-height: 1.6;
   }
   
+  .box{
+    border-color: #007bff;
+  }
+  
+  /* body{
+    background-image: url(../Users/admin/Desktop/2672335.jpg);
+  } */
