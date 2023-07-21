@@ -1,0 +1,45 @@
+.profile-screen {
+    max-width: 500px;
+    max-height: 600px;
+    margin: 100px auto; /* Added margin for top and bottom */
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .profile-header h2 {
+    margin-bottom: 10px;
+  }
+  
+  .profile-header p {
+    color: #666;
+  }
+  
+  .profile-screen .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .profile-screen button {
+    width: 100%;
+  }
+  
+  .profile-screen button:hover {
+    background-color: #1e90ff;
+    border-color: #1e90ff;
+  }
+  
+  .profile-screen label {
+    font-weight: bold;
+  }
+  
+  .profile-screen select {
+    cursor: pointer;
+  }
+  

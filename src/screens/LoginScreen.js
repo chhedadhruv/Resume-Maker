@@ -1,22 +1,44 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, createUser, provider } from '../firebase';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import '../styles/LoginScreen.css';
 
-const LoginScreen = () => {
+const LoginScreen = ({ setIsAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  let navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Add your login logic here without Firebase for now
-    console.log('Login functionality will be implemented later.');
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        localStorage.setItem('isAuth', true);
+        setIsAuth(true);
+        navigate('/');
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   const handleGoogleSignIn = () => {
-    // Add your Google sign-in logic here without Firebase for now
-    console.log('Google sign-in functionality will be implemented later.');
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        localStorage.setItem("isAuth", true);
+        setIsAuth(true);
+        navigate('/');
+      })
+      .catch((error) => {
+        setError(error.message);
+      }
+    );
   };
 
   const handleAlertDismiss = () => {

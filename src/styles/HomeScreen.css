@@ -50,15 +50,24 @@ body {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
   }
+
+  .hero-section button .link {
+    color: #007bff;
+    text-decoration: none;
+  }
   
   .hero-section button:hover {
-    background-color: #007bff;
+    outline: none;
+    color: #fff;
+  }
+
+  .hero-section button .link:hover {
     color: #fff;
   }
   
   /* Features Section */
   .features-section {
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
     padding: 40px 0;
     text-align: center;
   }
@@ -114,7 +123,7 @@ body {
   
   /* Testimonials Section */
   .testimonials-section {
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
     padding: 40px 0;
     text-align: center;
   }
@@ -172,7 +181,7 @@ body {
   
   /* FAQ Section */
   .faq-section {
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
     padding: 40px 0;
     text-align: center;
   }

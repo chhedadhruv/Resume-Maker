@@ -1,18 +1,48 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, createUser, provider } from '../firebase';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import '../styles/LoginScreen.css';
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ setIsAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  let navigate = useNavigate();
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    // Add your signup logic here without Firebase for now
-    console.log('Sign Up functionality will be implemented later.');
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        localStorage.setItem("isAuth", true);
+        setIsAuth(true);
+        navigate('/');
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  const handleGoogleSignUp = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        localStorage.setItem("isAuth", true);
+        setIsAuth(true);
+        navigate('/');
+      })
+      .catch((error) => {
+        setError(error.message);
+      }
+    );
   };
 
   const handleAlertDismiss = () => {
@@ -76,6 +106,9 @@ const SignUpScreen = () => {
 
               <Button type="submit" variant="primary" className="login-btn">
                 Sign Up
+              </Button>
+              <Button variant="danger" className="ml-2 google-btn" onClick={handleGoogleSignUp}>
+                Sign Up with Google
               </Button>
             </Form>
             <div className="login-link">

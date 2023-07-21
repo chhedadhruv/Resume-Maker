@@ -1,12 +1,11 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../styles/HomeScreen.css'; // Import the CSS file
 import NavbarComponent from '../components/Navbar';
 
 const HomeScreen = () => {
   return (
-    <>
-    <NavbarComponent />
     <div className='home-screen'>
       {/* Hero Section */}
       <Container fluid className="hero-section">
@@ -14,7 +13,9 @@ const HomeScreen = () => {
           <Col>
             <h1>Create Your Perfect Resume</h1>
             <p>Build a professional resume effortlessly with our user-friendly tools.</p>
-            <Button variant="primary" size="lg">Get Started</Button>
+            <Button variant="primary" size="lg">
+              <Link to='/signup' className='link'>Get Started</Link>
+            </Button>
           </Col>
         </Row>
       </Container>
@@ -141,7 +142,6 @@ const HomeScreen = () => {
         </Row>
       </Container>
     </div>
-    </>
   );
 };
 
