@@ -1,45 +1,68 @@
+/* ProfileScreen.css */
 .profile-screen {
-    max-width: 500px;
-    max-height: 600px;
-    margin: 100px auto; /* Added margin for top and bottom */
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .profile-header h2 {
-    margin-bottom: 10px;
-  }
-  
-  .profile-header p {
-    color: #666;
-  }
-  
-  .profile-screen .form-group {
-    margin-bottom: 25px;
-  }
-  
-  .profile-screen button {
+  padding-top: 30px;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.profile-card {
+  border: none;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card .card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.profile-card .form-group {
+  margin-bottom: 20px;
+}
+
+.profile-card .form-label {
+  font-weight: bold;
+}
+
+.profile-card .update-btn {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.profile-card .add-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.profile-card .remove-btn {
+  margin-top: 10px;
+}
+
+.profile-card .education-container,
+.profile-card .language-container,
+.profile-card .experience-container {
+  margin-bottom: 20px;
+}
+
+.profile-card .education-container .form-control,
+.profile-card .language-container .form-control {
+  display: inline-block;
+  width: calc(100% - 100px);
+}
+
+.profile-card .experience-container .form-control {
+  display: inline-block;
+  width: calc(100% - 60px);
+}
+
+.profile-card .experience-container textarea {
+  resize: none;
+}
+
+@media (max-width: 767px) {
+  .profile-card .education-container .form-control,
+  .profile-card .language-container .form-control,
+  .profile-card .experience-container .form-control {
     width: 100%;
   }
-  
-  .profile-screen button:hover {
-    background-color: #1e90ff;
-    border-color: #1e90ff;
-  }
-  
-  .profile-screen label {
-    font-weight: bold;
-  }
-  
-  .profile-screen select {
-    cursor: pointer;
-  }
-  
+}

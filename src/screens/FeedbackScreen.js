@@ -15,8 +15,9 @@ const FeedbackScreen = () => {
   };
 
   return (
-    <Container>
-      <Row className="justify-content-center">
+    <Container fluid>
+      <div className='bg-new-image'></div>
+      <Row className="justify-content-md-center feedback-section">
         <Col xs={12} md={8}>
           <div className="feedback-form">
             <h2>Provide Your Feedback</h2>

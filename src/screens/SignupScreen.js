@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col, Alert, Card, Image } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col, Alert, Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, provider } from '../firebase';
+import { auth, provider, firestore } from '../firebase';
+import { addDoc, collection } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import '../styles/LoginScreen.css';
 
@@ -20,6 +21,38 @@ const SignUpScreen = ({ setIsAuth }) => {
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        // Store additional user data in Firestore
+        const user = userCredential.user;
+        const docRef = addDoc(collection(firestore, 'users'), {
+          email: user.email,
+          name: '',
+          gender: '',
+          dateOfBirth: '',
+          profession: '',
+          address: '',
+          phone: '',
+          education: [],
+          languages: [],
+          profileInformation: '',
+          experience: [],
+          skills: [],
+        });
+
+        //   collection('users').doc(user.uid).set({
+        //   email: user.email,
+        //   name: '',
+        //   gender: '',
+        //   dateOfBirth: '',
+        //   profession: '',
+        //   address: '',
+        //   phone: '',
+        //   education: [],
+        //   languages: [],
+        //   profileInformation: '',
+        //   experience: [],
+        //   skills: [],
+        // });
+  
         localStorage.setItem('isAuth', true);
         setIsAuth(true);
         navigate('/');
@@ -28,13 +61,44 @@ const SignUpScreen = ({ setIsAuth }) => {
         setError(error.message);
       });
   };
-
+  
   const handleGoogleSignUp = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
+        const docRef = addDoc(collection(firestore, 'users'), {
+          email: user.email,
+          name: '',
+          gender: '',
+          dateOfBirth: '',
+          profession: '',
+          address: '',
+          phone: '',
+          education: [],
+          languages: [],
+          profileInformation: '',
+          experience: [],
+          skills: [],
+        });
+  
+        // Store additional user data in Firestore
+        //   collection('users').doc(user.uid).set({
+        //   email: user.email,
+        //   name: '',
+        //   gender: '',
+        //   dateOfBirth: '',
+        //   profession: '',
+        //   address: '',
+        //   phone: '',
+        //   education: [],
+        //   languages: [],
+        //   profileInformation: '',
+        //   experience: [],
+        //   skills: [],
+        // });
+  
         localStorage.setItem("isAuth", true);
         setIsAuth(true);
         navigate('/');
@@ -42,7 +106,7 @@ const SignUpScreen = ({ setIsAuth }) => {
       .catch((error) => {
         setError(error.message);
       });
-  };
+  };  
 
   const handleAlertDismiss = () => {
     setError(null);
