@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { firestore } from '../firebase';
+import { setDoc, doc } from 'firebase/firestore';
 import '../styles/FeedbackScreen.css';
 
 const FeedbackScreen = () => {
@@ -10,8 +12,21 @@ const FeedbackScreen = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your feedback form submission logic here
-    console.log('Feedback form submitted:', { name, email, feedbackType, message });
+    const feedbackRef = doc(firestore, 'feedback', email);
+    setDoc(feedbackRef, {
+      name,
+      email,
+      feedbackType,
+      message,
+    })
+      .then(() => {
+        alert('Feedback submitted successfully!');
+        setName('');
+        setEmail('');
+        setFeedbackType('general');
+        setMessage('');
+      }
+      )
   };
 
   return (

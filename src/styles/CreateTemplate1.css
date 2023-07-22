@@ -1,0 +1,25 @@
+.proficiency-circle {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+
+  .proficiency-circle li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .proficiency-circle li::before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: black;
+    margin-right: 5px;
+  }
+
+  .empty-circle {
+    background: none;
+    border: 1px solid black;
+  }

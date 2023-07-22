@@ -7,6 +7,7 @@ import '../styles/ProfileScreen.css';
 
 const ProfileScreen = () => {
   const [user, setUser] = useState(null); // Store user data
+  const [loading, setLoading] = useState(true); // Handle loading state
   const [error, setError] = useState(null);
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
@@ -25,12 +26,13 @@ const ProfileScreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        // User is logged in, fetch profile data
         setUser(user);
+        setLoading(true); // Set loading to true when the user is logged in
         fetchProfileData(user.uid);
       } else {
-        // User is not logged in, redirect to login page or show a message
-        navigate('/login'); // Redirect to the login page
+        setUser(null); // Reset the user state when the user logs out
+        setLoading(false); // Set loading to false when the user logs out
+        navigate('/login');
       }
     });
 
@@ -54,15 +56,25 @@ const ProfileScreen = () => {
           setProfileInformation(data.profileInformation || '');
           setExperience(data.experience || []);
           setSkills(data.skills || []);
+          setLoading(false);
         }
       })
       .catch((error) => {
         setError(error.message);
+        setLoading(false);
       });
   };
 
   const handleUpdateProfile = (e) => {
     e.preventDefault();
+    if (languages.some((lang) => lang.proficiency > 5)) {
+      setError('Proficiency value cannot be greater than 5.');
+      return;
+    }
+    if (skills.some((skill) => skill.proficiency > 5)) {
+      setError('Proficiency value cannot be greater than 5.');
+      return;
+    }
     const userDocRef = doc(firestore, 'users', user.uid);
     setDoc(userDocRef, {
       name,
@@ -87,7 +99,7 @@ const ProfileScreen = () => {
   };
 
   const handleAddExperience = () => {
-    setExperience((prevExperience) => [...prevExperience, { year: '', position: '', company: '', details: '' }]);
+    setExperience((prevExperience) => [...prevExperience, { startyear: '',endyear: '' , position: '', company: '', details: '' }]);
   };
 
   const handleRemoveExperience = (index) => {
@@ -103,7 +115,7 @@ const ProfileScreen = () => {
   };
 
   const handleAddEducation = () => {
-    setEducation((prevEducation) => [...prevEducation, { school: '', degree: '', year: '' }]);
+    setEducation((prevEducation) => [...prevEducation, { school: '', degree: '', startyear: '', endyear: '' }]);
   };
 
   const handleRemoveEducation = (index) => {
@@ -118,6 +130,10 @@ const ProfileScreen = () => {
     setLanguages((prevLanguages) => prevLanguages.filter((lang, i) => i !== index));
   };
 
+  if (loading) {
+    return <div>Loading...</div>; // You can show a loading indicator while checking the authentication state
+  }
+  
   if (!user) {
     return <div>Loading...</div>; // You can show a loading indicator while checking the authentication state
   }
@@ -191,36 +207,78 @@ const ProfileScreen = () => {
                 <Form.Group className="mb-3" controlId="phone">
                   <Form.Label>Phone</Form.Label>
                   <Form.Control
-                    type="tel"
+                    type="number"
                     placeholder="Enter your phone number"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="education">
-                  <Form.Label>Education</Form.Label>
-                  {education.map((edu, index) => (
-                    <div key={index}>
+                {/* <Form.Group className="mb-3" controlId="education">
+                <Form.Label>Education</Form.Label>
+                {education.map((edu, index) => (
+                  <div key={index}>
+                    <Form.Group controlId={`degree-${index}`}>
+                      <Form.Label>Degree</Form.Label>
                       <Form.Control
                         type="text"
-                        placeholder="Enter your education"
-                        value={edu}
-                        onChange={(e) => {
-                          setEducation((prevEdu) => {
-                            const updatedEducation = [...prevEdu];
-                            updatedEducation[index] = e.target.value;
+                        placeholder="Enter your degree"
+                        value={edu.degree}
+                        onChange={(e) =>
+                          setEducation((prevEducation) => {
+                            const updatedEducation = [...prevEducation];
+                            updatedEducation[index].degree = e.target.value;
                             return updatedEducation;
-                          });
-                        }}
+                          })
+                        }
                       />
-                      <Button variant="danger" onClick={() => handleRemoveEducation(index)}>Remove</Button>
-                    </div>
-                  ))}
-                  <Button variant="primary" onClick={handleAddEducation}>Add Education</Button>
-                </Form.Group>
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="languages">
+                    <Form.Group controlId={`school-${index}`}>
+                      <Form.Label>School</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter your school"
+                        value={edu.school}
+                        onChange={(e) =>
+                          setEducation((prevEducation) => {
+                            const updatedEducation = [...prevEducation];
+                            updatedEducation[index].school = e.target.value;
+                            return updatedEducation;
+                          })
+                        }
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId={`year-${index}`}>
+                      <Form.Label>Year</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter your year of completion"
+                        value={edu.year}
+                        onChange={(e) =>
+                          setEducation((prevEducation) => {
+                            const updatedEducation = [...prevEducation];
+                            updatedEducation[index].year = e.target.value;
+                            return updatedEducation;
+                          })
+                        }
+                      />
+                    </Form.Group>
+
+                    {index > 0 && (
+                      <Button variant="danger" onClick={() => handleRemoveEducation(index)}>
+                        Remove
+                      </Button>
+                    )}
+                  </div>
+                ))}
+                <Button variant="primary" onClick={handleAddEducation}>
+                  Add Education
+                </Button>
+              </Form.Group> */}
+
+                {/* <Form.Group className="mb-3" controlId="languages">
                   <Form.Label>Languages</Form.Label>
                   {languages.map((lang, index) => (
                     <div key={index}>
@@ -240,7 +298,7 @@ const ProfileScreen = () => {
                     </div>
                   ))}
                   <Button variant="primary" onClick={handleAddLanguage}>Add Language</Button>
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group className="mb-3" controlId="profileInformation">
                   <Form.Label>Profile Information</Form.Label>
@@ -263,64 +321,225 @@ const ProfileScreen = () => {
         <Col xs={12} md={6}>
           <Card className="profile-card">
             <Card.Body>
+              <Card.Title>Education</Card.Title>
+              {education.map((edu, index) => (
+                <div key={index}>
+                  <Form.Group className="mb-3" controlId="education">
+                    <Form.Label>Degree</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your degree"
+                      value={edu.degree}
+                      onChange={(e) =>
+                        setEducation((prevEducation) => {
+                          const updatedEducation = [...prevEducation];
+                          updatedEducation[index].degree = e.target.value;
+                          return updatedEducation;
+                        })
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="education">
+                    <Form.Label>School</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your school/college/university"
+                      value={edu.school}
+                      onChange={(e) =>
+                        setEducation((prevEducation) => {
+                          const updatedEducation = [...prevEducation];
+                          updatedEducation[index].school = e.target.value;
+                          return updatedEducation;
+                        })
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="education">
+                    <Form.Label>Start Year</Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter your year of completion"
+                      value={edu.startyear}
+                      onChange={(e) =>
+                        setEducation((prevEducation) => {
+                          const updatedEducation = [...prevEducation];
+                          updatedEducation[index].startyear = e.target.value;
+                          return updatedEducation;
+                        })
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="education">
+                    <Form.Label>End Year</Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter your year of completion"
+                      value={edu.endyear}
+                      onChange={(e) =>
+                        setEducation((prevEducation) => {
+                          const updatedEducation = [...prevEducation];
+                          updatedEducation[index].endyear = e.target.value;
+                          return updatedEducation;
+                        })
+                      }
+                    />
+                  </Form.Group>
+
+                  {/* {index > 0 && ( */}
+                    <Button variant="danger" onClick={() => handleRemoveEducation(index)}>
+                      Remove
+                    </Button>
+                  {/* )} */}
+                </div>
+              ))}
+              <Button variant="primary" onClick={handleAddEducation}>
+                Add Education
+              </Button>
+            </Card.Body>
+          </Card>
+
+          <Card className="profile-card">
+            <Card.Body>
+              <Card.Title>Languages</Card.Title>
+              {languages.map((lang, index) => (
+                <div key={index}>
+                  <Form.Group className="mb-3" controlId="languages">
+                    <Form.Label>Language</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your languages (e.g., English, Hindi, etc.)"
+                      value={lang.language}
+                      onChange={(e) => {
+                        setLanguages((prevLang) => {
+                          const updatedLanguages = [...prevLang];
+                          updatedLanguages[index].language = e.target.value;
+                          return updatedLanguages;
+                        });
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="languages">
+                    <Form.Label>Proficiency</Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter your proficiency (Rating out of 5)"
+                      value={lang.proficiency}
+                      onChange={(e) => {
+                        setLanguages((prevLang) => {
+                          const updatedLanguages = [...prevLang];
+                          updatedLanguages[index].proficiency = e.target.value;
+                          return updatedLanguages;
+                        });
+                      }}
+                    />
+                  </Form.Group>
+                  <Button variant="danger" onClick={() => handleRemoveLanguage(index)}>Remove</Button>
+                </div>
+              ))}
+              <Button variant="primary" onClick={handleAddLanguage}>Add Language</Button>
+            </Card.Body>
+          </Card>
+
+          <Card className="profile-card">
+            <Card.Body>
               <Card.Title>Experience</Card.Title>
               {experience.map((exp, index) => (
                 <div key={index}>
                   <Form.Group className="mb-3" controlId="experience">
-                  <Form.Label>Experience</Form.Label>
-                  {experience.map((exp, index) => (
-                    <div key={index}>
-                      <Form.Control
-                        type="text"
-                        placeholder="Position"
-                        value={exp.position}
-                        onChange={(e) => {
-                          setExperience((prevExp) => {
-                            const updatedExperience = [...prevExp];
-                            updatedExperience[index].position = e.target.value;
-                            return updatedExperience;
-                          });
-                        }}
-                      />
-                      <Form.Control
-                        type="text"
-                        placeholder="Company"
-                        value={exp.company}
-                        onChange={(e) => {
-                          setExperience((prevExp) => {
-                            const updatedExperience = [...prevExp];
-                            updatedExperience[index].company = e.target.value;
-                            return updatedExperience;
-                          });
-                        }}
-                      />
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        placeholder="Details"
-                        value={exp.details}
-                        onChange={(e) => {
-                          setExperience((prevExp) => {
-                            const updatedExperience = [...prevExp];
-                            updatedExperience[index].details = e.target.value;
-                            return updatedExperience;
-                          });
-                        }}
-                      />
-                      <Button variant="danger" onClick={() => handleRemoveExperience(index)}>Remove</Button>
-                    </div>
-                  ))}
-                  <Button variant="primary" onClick={handleAddExperience}>Add Experience</Button>
-                </Form.Group>
+                    <Form.Label> Start Year</Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter the year you started"
+                      value={exp.startyear}
+                      onChange={(e) =>
+                        setExperience((prevExperience) => {
+                          const updatedExperience = [...prevExperience];
+                          updatedExperience[index].startyear = e.target.value;
+                          return updatedExperience;
+                        })
+                      }
+                    />
+                  </Form.Group>
 
-                  {/* Add form fields for position, company, and details */}
+                  <Form.Group className="mb-3" controlId="experience">
+                    <Form.Label>End Year</Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter your year of completion"
+                      value={exp.endyear}
+                      onChange={(e) =>
+                        setExperience((prevExperience) => {
+                          const updatedExperience = [...prevExperience];
+                          updatedExperience[index].endyear = e.target.value;
+                          return updatedExperience;
+                        })
+                      }
+                    />
+                  </Form.Group>
 
-                  <Button variant="danger" onClick={() => handleRemoveExperience(index)}>Remove</Button>
+                  <Form.Group className="mb-3" controlId="experience">
+                    <Form.Label>Position</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your position"
+                      value={exp.position}
+                      onChange={(e) =>
+                        setExperience((prevExperience) => {
+                          const updatedExperience = [...prevExperience];
+                          updatedExperience[index].position = e.target.value;
+                          return updatedExperience;
+                        })
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="experience">
+                    <Form.Label>Company</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your company"
+                      value={exp.company}
+                      onChange={(e) =>
+                        setExperience((prevExperience) => {
+                          const updatedExperience = [...prevExperience];
+                          updatedExperience[index].company = e.target.value;
+                          return updatedExperience;
+                        })
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="experience">
+                    <Form.Label>Details</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      placeholder="Enter your details"
+                      value={exp.details}
+                      onChange={(e) =>
+                        setExperience((prevExperience) => {
+                          const updatedExperience = [...prevExperience];
+                          updatedExperience[index].details = e.target.value;
+                          return updatedExperience;
+                        })
+                      }
+                    />
+                  </Form.Group>
+   
+                    <Button variant="danger" onClick={() => handleRemoveExperience(index)}>
+                      Remove
+                    </Button>
                 </div>
               ))}
-              <Button variant="primary" onClick={handleAddExperience}>Add Experience</Button>
+              <Button variant="primary" onClick={handleAddExperience}>
+                Add Experience
+              </Button>
             </Card.Body>
           </Card>
+
 
           <Card className="profile-card">
             <Card.Body>
@@ -337,6 +556,21 @@ const ProfileScreen = () => {
                         setSkills((prevSkills) => {
                           const updatedSkills = [...prevSkills];
                           updatedSkills[index].skill = e.target.value;
+                          return updatedSkills;
+                        });
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Proficiency</Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter your proficiency (Rating out of 5)"
+                      value={skill.proficiency}
+                      onChange={(e) => {
+                        setSkills((prevSkills) => {
+                          const updatedSkills = [...prevSkills];
+                          updatedSkills[index].proficiency = e.target.value;
                           return updatedSkills;
                         });
                       }}
