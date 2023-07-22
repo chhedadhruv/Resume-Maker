@@ -7,7 +7,6 @@ import { signOut } from 'firebase/auth';
 import LoginScreen from './screens/LoginScreen'
 import SignupScreen from './screens/SignupScreen'
 import HomeScreen from './screens/HomeScreen'
-import ContactScreen from './screens/ContactScreen';
 import FeedbackScreen from './screens/FeedbackScreen';
 import AboutScreen from './screens/AboutScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -49,7 +48,6 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link active href="/">Home</Nav.Link>
             <Nav.Link active href="/about">About</Nav.Link>
-            <Nav.Link active href="/contact">Contact</Nav.Link>
             <Nav.Link active href="/feedback">Feedback</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
@@ -63,7 +61,6 @@ function App() {
             <Nav.Link active href="/">Home</Nav.Link>
             <Nav.Link active href="/templates">Templates</Nav.Link>
             <Nav.Link active href="/about">About</Nav.Link>
-            <Nav.Link active href="/contact">Contact</Nav.Link>
             <Nav.Link active href="/feedback">Feedback</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
@@ -82,7 +79,6 @@ function App() {
         <Route path='/login' element={<LoginScreen setIsAuth={setIsAuth} />} />
         <Route path='/signup' element={<SignupScreen setIsAuth={setIsAuth} />} />
         <Route exact path='/' element={<HomeScreen isAuth={isAuth} />} />
-        <Route path='/contact' element={<ContactScreen />} />
         <Route path='/feedback' element={<FeedbackScreen />} />
         <Route path='/about' element={<AboutScreen />} />
         <Route path='/profile' element={<ProfileScreen />} />
