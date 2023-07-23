@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import DomToImage from "dom-to-image";
 import "../styles/CreateTemplate1.css";
 import ImageUser from "../assets/bg.png";
 
@@ -93,7 +94,7 @@ const CreateTemplate1 = () => {
         resolve(userImage);
         return;
       }
-  
+
       // Get the user's image URL from Firebase Storage
       const storageRef = ref(storage, `users/${uid}/profile-image`);
       getDownloadURL(storageRef)
@@ -107,7 +108,7 @@ const CreateTemplate1 = () => {
         });
     });
   };
-  
+
   const generateLightCircles = (proficiency) => {
     const filledCirclesCount = Math.min(proficiency, 4); // Limit the number of filled circles to 4
     const circles = [];
@@ -115,7 +116,9 @@ const CreateTemplate1 = () => {
       circles.push(
         <span
           key={i}
-          className={`circle ${i < filledCirclesCount ? "filled-light" : "outline-light"}`}
+          className={`circle ${
+            i < filledCirclesCount ? "filled-light" : "outline-light"
+          }`}
         ></span>
       );
     }
@@ -129,7 +132,9 @@ const CreateTemplate1 = () => {
       circles.push(
         <span
           key={i}
-          className={`circle ${i < filledCirclesCount ? "filled-dark" : "outline-dark"}`}
+          className={`circle ${
+            i < filledCirclesCount ? "filled-dark" : "outline-dark"
+          }`}
         ></span>
       );
     }
@@ -140,32 +145,47 @@ const CreateTemplate1 = () => {
     if (option === "pdf") {
       const element = document.getElementById("resume");
       const opt = {
-        margin: 0.5,
+        margin: 0,
         filename: "resume.pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       };
       html2pdf().set(opt).from(element).save();
-    } else if (option === "txt") {
-      const element = document.getElementById("resume");
-      html2canvas(element).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF("p", "mm", "a4");
-        const width = pdf.internal.pageSize.getWidth();
-        const height = pdf.internal.pageSize.getHeight();
-        pdf.addImage(imgData, "JPEG", 0, 0, width, height);
-        pdf.save("resume.pdf");
-      });
     } else if (option === "png") {
+      // download as png
       const element = document.getElementById("resume");
-      html2canvas(element).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF("p", "mm", "a4");
-        
-        pdf.addImage(imgData, "JPEG", 0, 0);
-        pdf.save("resume.pdf");
-      });
+  
+      // Temporary increase the size of the element for better resolution
+      const originalWidth = element.offsetWidth;
+      const originalHeight = element.offsetHeight;
+      element.style.width = `${originalWidth * 2}px`; // Increase size by a factor of 2
+      element.style.height = `${originalHeight * 2}px`;
+  
+      // Use dom-to-image to generate the PNG image with a higher scale or pixel ratio
+      DomToImage.toPng(element)
+        .then((dataUrl) => {
+          // Reset the size back to the original
+          element.style.width = `${originalWidth}px`;
+          element.style.height = `${originalHeight}px`;
+  
+          const link = document.createElement("a");
+          link.download = "resume.png";
+          link.href = dataUrl;
+  
+          // Attach the link to the document and trigger the download
+          document.body.appendChild(link);
+          link.click();
+  
+          // Clean up by removing the link from the document
+          document.body.removeChild(link);
+        })
+        .catch((error) => {
+          console.error("Error generating PNG image:", error);
+          // Reset the size back to the original in case of an error
+          element.style.width = `${originalWidth}px`;
+          element.style.height = `${originalHeight}px`;
+        });
     }
   };
 
@@ -174,15 +194,13 @@ const CreateTemplate1 = () => {
     if (file) {
       setUploadedImage(file);
       const storageRef = ref(storage, `users/${user.uid}/profile-image`);
-      uploadBytes(storageRef, file)
-        .then((snapshot) => {
-          console.log("Uploaded a blob or file!");
-          getUserImage(user.uid);
-        }
-        )
+      uploadBytes(storageRef, file).then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+        getUserImage(user.uid);
+      });
     }
-  };  
-  
+  };
+
   if (!user) {
     return <div>Loading...</div>; // You can show a loading indicator while checking the authentication state
   }
@@ -219,25 +237,27 @@ const CreateTemplate1 = () => {
                 //   width="150px"
                 //   height="150px"
                 // />
-              <Form.Group className="mb-3" controlId="formFile">
-                <Form.Control
-                  type="file"
-                  onChange={handleImageUpload}
-                  accept="image/*"
-                />
-              </Form.Group>
+                <Form.Group className="mb-3" controlId="formFile">
+                  <Form.Control
+                    type="file"
+                    onChange={handleImageUpload}
+                    accept="image/*"
+                  />
+                </Form.Group>
               )}
-              
+
               {/* Contact Info */}
               <Card className="transparent-card font">
                 <Card.Body>
-                  <Card.Title className="card-text-color semibold contact-title">Contact</Card.Title>
+                  <Card.Title className="card-text-color semibold contact-title">
+                    Contact
+                  </Card.Title>
                   <Card.Text className="card-text-color">
-                    <p>Phone:</p>
+                    <p style={{ marginTop: "10px" }}>Phone:</p>
                     <p>{phone}</p>
-                    <p>Email:</p>
+                    <p style={{ marginTop: "10px" }}>Email:</p>
                     <p>{email}</p>
-                    <p>Address:</p>
+                    <p style={{ marginTop: "10px" }}>Address:</p>
                     <p>{address}</p>
                   </Card.Text>
                 </Card.Body>
@@ -245,12 +265,14 @@ const CreateTemplate1 = () => {
               {/* Education */}
               <Card className="transparent-card font">
                 <Card.Body>
-                  <Card.Title className="card-text-color semibold">Education</Card.Title>
+                  <Card.Title className="card-text-color semibold contact-title">
+                    Education
+                  </Card.Title>
                   <Card.Text className="card-text-color">
                     {education.map((item, index) => {
                       return (
                         <>
-                          <p key={index}>
+                          <p key={index} style={{ marginTop: "10px" }}>
                             {item.startyear} - {item.endyear}
                           </p>
                           <p>{item.degree}</p>
@@ -264,7 +286,9 @@ const CreateTemplate1 = () => {
               {/* Languages */}
               <Card className="transparent-card font">
                 <Card.Body>
-                  <Card.Title className="card-text-color semibold">Language</Card.Title>
+                  <Card.Title className="card-text-color semibold contact-title">
+                    Language
+                  </Card.Title>
                   <Card.Text className="card-text-color">
                     {languages.map((item, index) => (
                       <div key={index} className="language-item">
@@ -285,12 +309,8 @@ const CreateTemplate1 = () => {
               <Card className="transparent-card name-card">
                 <Card.Body>
                   <Card.Title className="semibold name-font">
-                  <div>
-    {name.split(' ')[0]}
-  </div>
-  <div>
-    {name.split(' ')[1]}
-  </div>
+                    <div>{name.split(" ")[0]}</div>
+                    <div>{name.split(" ")[1]}</div>
                   </Card.Title>
                   <Card.Text>
                     <p>{profession}</p>
@@ -300,7 +320,7 @@ const CreateTemplate1 = () => {
               {/* Profile Information */}
               <Card className="transparent-card profile-info font">
                 <Card.Body>
-                  <Card.Title className="semibold">Profile</Card.Title>
+                  <Card.Title className="semibold profile-title">Profile</Card.Title>
                   <Card.Text>
                     <p>{profileInformation}</p>
                   </Card.Text>
@@ -309,7 +329,9 @@ const CreateTemplate1 = () => {
               {/* Experience */}
               <Card className="transparent-card experience">
                 <Card.Body>
-                  <Card.Title className="experience-card">Experience</Card.Title>
+                  <Card.Title className="experience-card profile-title">
+                    Experience
+                  </Card.Title>
                   <Row>
                     <Col md={3}>
                       <Card.Text>
@@ -330,7 +352,9 @@ const CreateTemplate1 = () => {
                         {experience.map((item, index) => {
                           return (
                             <>
-                              <p key={index} className="medium">{item.position}</p>
+                              <p key={index} className="medium">
+                                {item.position}
+                              </p>
                               <p className="light">{item.details}</p>
                             </>
                           );
@@ -342,51 +366,53 @@ const CreateTemplate1 = () => {
               </Card>
               {/* Skills */}
               <Card className="transparent-card font">
-  <Card.Body>
-    <Card.Title className="semibold">Skills</Card.Title>
-    <Card.Text>
-      <div className="skills-row">
-        {skills.map((item, index) => (
-          <div key={index} className="skill-item">
-            <p>{item.skill}</p>
-            <div className="circles-container">{generateDarkCircles(item.proficiency)}</div>
-          </div>
-        ))}
-      </div>
-    </Card.Text>
-  </Card.Body>
-</Card>
+                <Card.Body>
+                  <Card.Title className="semibold profile-title">Skills</Card.Title>
+                  <Card.Text>
+                    <div className="skills-row">
+                      {skills.map((item, index) => (
+                        <div key={index} className="skill-item">
+                          <p>{item.skill}</p>
+                          <div className="circles-container">
+                            {generateDarkCircles(item.proficiency)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
             </Card>
           </Col>
         </div>
         {/* </Card> */}
         {/* Buttons */}
-        <Row className="justify-content-center mt-3">
-            <Col xs="auto">
-              <Button variant="primary" onClick={() => navigate("/edittemplate1")}>
-                Edit Resume
-              </Button>
-            </Col>
-            <Col xs="auto">
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Download Resume
-                </Dropdown.Toggle>
+        <Row className="justify-content-center mt-3" style={{marginBottom: '10px'}}>
+          <Col xs="auto">
+            <Button
+              variant="primary"
+              onClick={() => navigate("/edittemplate1")}
+            >
+              Edit Resume
+            </Button>
+          </Col>
+          <Col xs="auto">
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Download Resume
+              </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => handleDownloadOption("pdf")}>
-                    Download as PDF
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleDownloadOption("txt")}>
-                    Download as TXT
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleDownloadOption("png")}>
-                    Download as PNG
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-            </Row>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => handleDownloadOption("pdf")}>
+                  Download as PDF
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleDownloadOption("png")}>
+                  Download as PNG
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+        </Row>
       </Row>
     </Container>
   );

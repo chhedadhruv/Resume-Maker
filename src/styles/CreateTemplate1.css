@@ -66,18 +66,18 @@
 .experience .regular {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .experience .medium {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .experience .light {
   font-family: 'Poppins', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 10px;
 }
 
@@ -105,6 +105,7 @@
 .user-img-color {
   border: 1px solid #fff;
   background-color: #ebebeb;
+  margin-top: 20px;
 }
 
 /* Add styles for the circles */
@@ -166,14 +167,30 @@
 
 .contact-title {
   position: relative;
+  margin-bottom: 20px;
 }
 
 .contact-title::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -2px; /* Adjust this value to control the distance of the line from the title */
-  width: 20%;
+  bottom: -10px; /* Adjust this value to control the distance of the line from the title */
+  width: 30px;
   height: 2px; /* Adjust this value to control the thickness of the line */
   background-color: #fff; /* Set the color of the line here */
+}
+
+.profile-title {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.profile-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px; /* Adjust this value to control the distance of the line from the title */
+  width: 30px;
+  height: 2px; /* Adjust this value to control the thickness of the line */
+  background-color: #000; /* Set the color of the line here */
 }

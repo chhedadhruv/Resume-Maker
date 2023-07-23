@@ -79,14 +79,14 @@ const HomeScreen = ({ isAuth }) => {
         <Row>
           <Col md={6}>
             <div className="testimonial">
-              <p>"I got my dream job thanks to this amazing resume builder! Highly recommended!"</p>
-              <p>- John Doe, Web Developer</p>
+              <p>"Resume making just got easy thanks to this amazing resume builder! Highly recommended!"</p>
+              <p>- Mahek Pandya, Web Developer</p>
             </div>
           </Col>
           <Col md={6}>
             <div className="testimonial">
               <p>"Creating a resume has never been this easy. The templates are fantastic!"</p>
-              <p>- Jane Smith, Marketing Manager</p>
+              <p>- Arya Madan, Web Developer</p>
             </div>
           </Col>
         </Row>
@@ -122,7 +122,7 @@ const HomeScreen = ({ isAuth }) => {
             </div>
             <div className="faq">
               <h4>Can I download my resume in multiple formats?</h4>
-              <p>Yes, you can download your resume as a PDF, Word document, or plain text.</p>
+              <p>Yes, you can download your resume as a PDF or PNG.</p>
             </div>
           </Col>
           <Col md={6}>
@@ -140,8 +140,9 @@ const HomeScreen = ({ isAuth }) => {
         <Row>
           <Col>
             <p>If you have any questions or need support, feel free to contact our team:</p>
-            <p>Email: contact@example.com</p>
-            <p>Phone: +1 (123) 456-7890</p>
+            <p>Email: 
+              <a href='mailto: chhedadhruv1234@gmail.com' style={{textDecoration: 'none', color: '#fff'}}> chhedadhruv1234@gmail.com</a>
+              </p>
           </Col>
         </Row>
       </Container>

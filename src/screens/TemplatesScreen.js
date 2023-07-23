@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Modal, Button, Alert } from 'react-bootstrap';
+import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import '../styles/TemplatesScreen.css';
 import Template1 from '../assets/templates/template1.png';
@@ -12,26 +13,44 @@ const templates = [
       title: 'Template 1',
       description: 'A simple and elegant resume template.',
       image: Template1,
+      buttonText: 'Use This Template',
     },
     {
       id: 2,
       title: 'Template 2',
       description: 'A modern and professional resume template.',
       image: Template2,
+      buttonText: 'Coming Soon'
     },
     {
       id: 3,
       title: 'Template 3',
       description: 'A modern and professional resume template.',
       image: Template3,
+      buttonText: 'Coming Soon'
     },
   ];
   
 
   const TemplatesScreen = () => {
+    const [user, setUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((authUser) => {
+        if (authUser) {
+          // User is logged in
+          setUser(authUser);
+        } else {
+          // User is logged out
+          setUser(null);
+        }
+      });
+
+      return unsubscribe;
+    }, [user, navigate]);
   
     const handleTemplateClick = (template) => {
       setSelectedTemplate(template);
@@ -74,7 +93,7 @@ const templates = [
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={handleUseTemplate}>
-              Use This Template
+              {selectedTemplate?.buttonText}
             </Button>
           </Modal.Footer>
         </Modal>

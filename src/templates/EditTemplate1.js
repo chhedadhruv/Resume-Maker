@@ -211,8 +211,7 @@ const EditTemplate1 = () => {
           </h3>
           {error && <p className="text-danger">{error}</p>}
           {/*User Image*/}
-          <div className="user-image">
-            {/* If the userImage is available, display the image and edit button */}
+          {/* <div className="user-image">
             {userImage ? (
               <>
                 <img src={userImage} alt="User" />
@@ -226,7 +225,6 @@ const EditTemplate1 = () => {
                 </label>
               </>
             ) : (
-              /* If the userImage is not available, display the text label and upload button */
               <>
                 <div className="upload-image-circle">
                   <label htmlFor="image-upload" className="upload-image-btn">
@@ -241,7 +239,7 @@ const EditTemplate1 = () => {
                 <p className="upload-text">Upload Photo</p>
               </>
             )}
-          </div>
+          </div> */}
 
           {/*Contact Information*/}
           <Card className="contact mb-3">
@@ -339,6 +337,7 @@ const EditTemplate1 = () => {
                   <Button
                     variant="danger"
                     onClick={() => handleRemoveEducation(index)}
+                    style={{marginBottom: '10px'}}
                   >
                     Remove
                   </Button>
@@ -384,6 +383,7 @@ const EditTemplate1 = () => {
                   <Button
                     variant="danger"
                     onClick={() => handleRemoveLanguage(index)}
+                    style={{marginBottom: '10px'}}
                   >
                     Remove
                   </Button>
@@ -461,7 +461,7 @@ const EditTemplate1 = () => {
                         >
                           <Form.Label>End Year</Form.Label>
                           <Form.Control
-                            type="number"
+                            type="text"
                             placeholder="Enter end year"
                             value={exp.endyear}
                             onChange={(e) => {
@@ -523,6 +523,7 @@ const EditTemplate1 = () => {
                         <Button
                           variant="danger"
                           onClick={() => handleRemoveExperience(index)}
+                          style={{marginBottom: '10px'}}
                         >
                           Remove
                         </Button>
@@ -574,6 +575,7 @@ const EditTemplate1 = () => {
                         <Button
                           variant="danger"
                           onClick={() => handleRemoveSkill(index)}
+                          style={{marginBottom: '10px'}}
                         >
                           Remove
                         </Button>

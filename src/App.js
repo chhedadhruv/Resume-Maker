@@ -12,6 +12,8 @@ import AboutScreen from './screens/AboutScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import TemplatesScreen from './screens/TemplatesScreen';
 import EditTemplate1 from './templates/EditTemplate1';
+import EditTemplate2 from './templates/EditTemplate2';
+import EditTemplate3 from './templates/EditTemplate3';
 import CreateTemplate1 from './templates/CreateTemplate1';
 
 function App() {
@@ -41,7 +43,7 @@ function App() {
     <Router>
       <Navbar bg="primary" variant="dark" expand="lg" fixed="top">
       <Container>
-        <Navbar.Brand href="/">Resume Maker</Navbar.Brand>
+        <Navbar.Brand href="/">SkillFlex</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           {!isAuth ? (
@@ -85,6 +87,8 @@ function App() {
         <Route path='/profile' element={<ProfileScreen />} />
         <Route path='/templates' element={<TemplatesScreen />} />
         <Route path='/edittemplate1' element={<EditTemplate1 />} />
+        <Route path='/edittemplate2' element={<EditTemplate2 />} />
+        <Route path='/edittemplate3' element={<EditTemplate3 />} />
         <Route path='/template1' element={<CreateTemplate1 />} />
       </Routes>
     </Router>

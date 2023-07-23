@@ -389,7 +389,7 @@ const ProfileScreen = () => {
                   </Form.Group>
 
                   {/* {index > 0 && ( */}
-                    <Button variant="danger" onClick={() => handleRemoveEducation(index)}>
+                    <Button variant="danger" onClick={() => handleRemoveEducation(index)} style={{marginBottom: '10px'}}>
                       Remove
                     </Button>
                   {/* )} */}
@@ -436,7 +436,7 @@ const ProfileScreen = () => {
                       }}
                     />
                   </Form.Group>
-                  <Button variant="danger" onClick={() => handleRemoveLanguage(index)}>Remove</Button>
+                  <Button variant="danger" onClick={() => handleRemoveLanguage(index)} style={{marginBottom: '10px'}}>Remove</Button>
                 </div>
               ))}
               <Button variant="primary" onClick={handleAddLanguage}>Add Language</Button>
@@ -529,7 +529,7 @@ const ProfileScreen = () => {
                     />
                   </Form.Group>
    
-                    <Button variant="danger" onClick={() => handleRemoveExperience(index)}>
+                    <Button variant="danger" onClick={() => handleRemoveExperience(index)} style={{marginBottom: '10px'}}>
                       Remove
                     </Button>
                 </div>
@@ -579,7 +579,7 @@ const ProfileScreen = () => {
 
                   {/* Add form fields for proficiency */}
                   
-                  <Button variant="danger" onClick={() => handleRemoveSkill(index)}>Remove</Button>
+                  <Button variant="danger" onClick={() => handleRemoveSkill(index)} style={{marginBottom: '10px'}}>Remove</Button>
                 </div>
               ))}
               <Button variant="primary" onClick={handleAddSkill}>Add Skill</Button>

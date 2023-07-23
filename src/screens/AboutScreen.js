@@ -1,4 +1,5 @@
 import React from "react";
+import Me from "../assets/me.jpg";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -41,11 +42,11 @@ const AboutScreen = () => {
             </p>
           </div>
         </Col>
-        <Col>
+        {/* <Col>
           <Card className="info-card">
             <Card.Body>
               <Image
-                src="path_to_your_photo.jpg"
+                src={Me}
                 roundedCircle
                 className="profile-image"
               />
@@ -73,11 +74,10 @@ const AboutScreen = () => {
                 >
                   <FontAwesomeIcon icon={faInstagram} />
                 </a>
-                {/* Add more social media links/icons as needed */}
               </div>
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
     </Container>
   );
