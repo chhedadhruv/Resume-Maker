@@ -16,6 +16,7 @@
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
     "firebase": "^10.0.0",
+    "gh-pages": "^5.0.0",
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.1",
@@ -31,6 +32,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

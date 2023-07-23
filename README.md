@@ -1,7 +1,5 @@
 # Resume Maker Website
 
-![SkillFlex]
-
 Welcome to SkillFlex, your one-stop solution to create the perfect professional resume effortlessly! 🚀
 
 ## Features
@@ -45,4 +43,4 @@ Yes, we take data security seriously and ensure your information is protected.
 If you have any questions or need support, feel free to contact our team:
 - **Email:** [chhedadhruv1234@gmail.com](mailto:chhedadhruv1234@gmail.com)
 
-Get started on your journey to create a professional resume that stands out! 📝 [Create your Resume](skillflex.dhruvchheda.com)
+Get started on your journey to create a professional resume that stands out! 📝 [Create your Resume](https://skillflex.dhruvchheda.com)
