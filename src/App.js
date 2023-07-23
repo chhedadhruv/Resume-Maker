@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
@@ -43,32 +43,76 @@ function App() {
     <Router>
       <Navbar bg="primary" variant="dark" expand="lg" fixed="top">
       <Container>
-        <Navbar.Brand href="/">SkillFlex</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+          SkillFlex
+          </Link>
+          </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           {!isAuth ? (
             <>
           <Nav className="mr-auto">
-            <Nav.Link active href="/">Home</Nav.Link>
-            <Nav.Link active href="/about">About</Nav.Link>
-            <Nav.Link active href="/feedback">Feedback</Nav.Link>
+            <Nav.Link active>
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+              Home
+              </Link>
+              </Nav.Link>
+            <Nav.Link active>
+              <Link to='about' style={{ textDecoration: 'none', color: 'white' }}>
+              About
+              </Link>
+              </Nav.Link>
+            <Nav.Link active>
+              <Link to='feedback' style={{ textDecoration: 'none', color: 'white' }}>
+              Feedback
+              </Link>
+              </Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
-            <Nav.Link active href="/login">Login</Nav.Link>
-            <Nav.Link active href="/signup">Sign Up</Nav.Link>
+            <Nav.Link active>
+              <Link to='login' style={{ textDecoration: 'none', color: 'white' }}>
+              Login
+              </Link>
+              </Nav.Link>
+            <Nav.Link active>
+              <Link to='signup' style={{ textDecoration: 'none', color: 'white' }}>
+              Sign Up
+              </Link>
+              </Nav.Link>
           </Nav>
           </>
           ) : (
             <>
           <Nav className="mr-auto">
-            <Nav.Link active href="/">Home</Nav.Link>
-            <Nav.Link active href="/templates">Templates</Nav.Link>
-            <Nav.Link active href="/about">About</Nav.Link>
-            <Nav.Link active href="/feedback">Feedback</Nav.Link>
+            <Nav.Link active>
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+              Home
+              </Link>
+              </Nav.Link>
+            <Nav.Link active>
+              <Link to='templates' style={{ textDecoration: 'none', color: 'white' }}>
+              Templates
+              </Link>
+              </Nav.Link>
+            <Nav.Link active>
+              <Link to='about' style={{ textDecoration: 'none', color: 'white' }}>
+              About
+              </Link>
+              </Nav.Link>
+            <Nav.Link active>
+              <Link to='feedback' style={{ textDecoration: 'none', color: 'white' }}>
+              Feedback
+              </Link>
+              </Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
             <NavDropdown active title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to='profile' style={{ textDecoration: 'none', color: 'black' }}>
+                Profile
+                </Link>
+                </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={handleLogout} style={{color: 'red'}}>Logout</NavDropdown.Item>
             </NavDropdown>
@@ -79,9 +123,9 @@ function App() {
       </Container>
     </Navbar>
       <Routes>
+        <Route path='/' element={<HomeScreen isAuth={isAuth} />} />
         <Route path='/login' element={<LoginScreen setIsAuth={setIsAuth} />} />
         <Route path='/signup' element={<SignupScreen setIsAuth={setIsAuth} />} />
-        <Route exact path='/' element={<HomeScreen isAuth={isAuth} />} />
         <Route path='/feedback' element={<FeedbackScreen />} />
         <Route path='/about' element={<AboutScreen />} />
         <Route path='/profile' element={<ProfileScreen />} />
