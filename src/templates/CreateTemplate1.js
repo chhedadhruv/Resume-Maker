@@ -198,14 +198,15 @@ const CreateTemplate1 = () => {
     // create a resume template in which on the left side there will be user's image, below that there will be contact info like phone, email, address and below that there will be education and languages and on the right side there will be name, profession, profile information, experience and skills
     <Container fluid style={{ marginTop: "70px" }}>
       <Row className="justify-content-center">
-        <Card className="main-card" id="resume">
-          <Col md={3} className="d-flex">
+        {/* <Card className="main-card" id="resume"> */}
+        <div className="main-card" id="resume">
+          <Col md={4} className="d-flex">
             <Card className="left-card">
               {/* User's Image */}
               {uploadedImage ? (
                 <Image
                   src={URL.createObjectURL(uploadedImage)}
-                  className="user-image"
+                  className="user-img-color"
                   roundedCircle
                   width="150px"
                   height="150px"
@@ -228,23 +229,23 @@ const CreateTemplate1 = () => {
               )}
               
               {/* Contact Info */}
-              <Card className="transparent-card">
+              <Card className="transparent-card font">
                 <Card.Body>
-                  <Card.Title className="card-text-color">Contact</Card.Title>
+                  <Card.Title className="card-text-color semibold contact-title">Contact</Card.Title>
                   <Card.Text className="card-text-color">
-                    <p>Email:</p>
-                    <p>{email}</p>
                     <p>Phone:</p>
                     <p>{phone}</p>
+                    <p>Email:</p>
+                    <p>{email}</p>
                     <p>Address:</p>
                     <p>{address}</p>
                   </Card.Text>
                 </Card.Body>
               </Card>
               {/* Education */}
-              <Card className="transparent-card">
+              <Card className="transparent-card font">
                 <Card.Body>
-                  <Card.Title className="card-text-color">Education</Card.Title>
+                  <Card.Title className="card-text-color semibold">Education</Card.Title>
                   <Card.Text className="card-text-color">
                     {education.map((item, index) => {
                       return (
@@ -261,9 +262,9 @@ const CreateTemplate1 = () => {
                 </Card.Body>
               </Card>
               {/* Languages */}
-              <Card className="transparent-card">
+              <Card className="transparent-card font">
                 <Card.Body>
-                  <Card.Title className="card-text-color">Language</Card.Title>
+                  <Card.Title className="card-text-color semibold">Language</Card.Title>
                   <Card.Text className="card-text-color">
                     {languages.map((item, index) => (
                       <div key={index} className="language-item">
@@ -278,52 +279,59 @@ const CreateTemplate1 = () => {
               </Card>
             </Card>
           </Col>
-          <Col md={4} className="d-flex justify-content-center">
+          <Col className="d-flex justify-content-center">
             <Card className="right-card transparent-card">
               {/* Name */}
-              <Card className="transparent-card">
+              <Card className="transparent-card name-card">
                 <Card.Body>
-                  <Card.Title>{name}</Card.Title>
+                  <Card.Title className="semibold name-font">
+                  <div>
+    {name.split(' ')[0]}
+  </div>
+  <div>
+    {name.split(' ')[1]}
+  </div>
+                  </Card.Title>
                   <Card.Text>
                     <p>{profession}</p>
                   </Card.Text>
                 </Card.Body>
               </Card>
               {/* Profile Information */}
-              <Card className="transparent-card">
+              <Card className="transparent-card profile-info font">
                 <Card.Body>
-                  <Card.Title>Profile Information</Card.Title>
+                  <Card.Title className="semibold">Profile</Card.Title>
                   <Card.Text>
                     <p>{profileInformation}</p>
                   </Card.Text>
                 </Card.Body>
               </Card>
               {/* Experience */}
-              <Card className="transparent-card">
+              <Card className="transparent-card experience">
                 <Card.Body>
-                  <Card.Title>Experience</Card.Title>
+                  <Card.Title className="experience-card">Experience</Card.Title>
                   <Row>
-                    <Col md={6}>
+                    <Col md={3}>
                       <Card.Text>
                         {experience.map((item, index) => {
                           return (
                             <>
-                              <p key={index}>
+                              <p key={index} className="regular">
                                 {item.startyear} - {item.endyear}
                               </p>
-                              <p>{item.company}</p>
+                              <p className="regular">{item.company}</p>
                             </>
                           );
                         })}
                       </Card.Text>
                     </Col>
-                    <Col md={6}>
+                    <Col md={8}>
                       <Card.Text>
                         {experience.map((item, index) => {
                           return (
                             <>
-                              <p key={index}>{item.position}</p>
-                              <p>{item.details}</p>
+                              <p key={index} className="medium">{item.position}</p>
+                              <p className="light">{item.details}</p>
                             </>
                           );
                         })}
@@ -333,22 +341,25 @@ const CreateTemplate1 = () => {
                 </Card.Body>
               </Card>
               {/* Skills */}
-              <Card className="transparent-card">
-                <Card.Body>
-                  <Card.Title>Skills</Card.Title>
-                  <Card.Text>
-                  {skills.map((item, index) => (
-            <div key={index} className="skill-item">
-              <p>{item.skill}</p>
-              <div className="circles-container">{generateDarkCircles(item.proficiency)}</div>
-            </div>
-          ))}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+              <Card className="transparent-card font">
+  <Card.Body>
+    <Card.Title className="semibold">Skills</Card.Title>
+    <Card.Text>
+      <div className="skills-row">
+        {skills.map((item, index) => (
+          <div key={index} className="skill-item">
+            <p>{item.skill}</p>
+            <div className="circles-container">{generateDarkCircles(item.proficiency)}</div>
+          </div>
+        ))}
+      </div>
+    </Card.Text>
+  </Card.Body>
+</Card>
             </Card>
           </Col>
-        </Card>
+        </div>
+        {/* </Card> */}
         {/* Buttons */}
         <Row className="justify-content-center mt-3">
             <Col xs="auto">

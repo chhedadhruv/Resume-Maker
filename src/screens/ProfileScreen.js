@@ -375,7 +375,7 @@ const ProfileScreen = () => {
                   <Form.Group className="mb-3" controlId="education">
                     <Form.Label>End Year</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       placeholder="Enter your year of completion"
                       value={edu.endyear}
                       onChange={(e) =>
@@ -425,7 +425,7 @@ const ProfileScreen = () => {
                     <Form.Label>Proficiency</Form.Label>
                     <Form.Control
                       type="number"
-                      placeholder="Enter your proficiency (Rating out of 5)"
+                      placeholder="Enter your proficiency (Rating out of 4)"
                       value={lang.proficiency}
                       onChange={(e) => {
                         setLanguages((prevLang) => {
@@ -467,7 +467,7 @@ const ProfileScreen = () => {
                   <Form.Group className="mb-3" controlId="experience">
                     <Form.Label>End Year</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       placeholder="Enter your year of completion"
                       value={exp.endyear}
                       onChange={(e) =>
@@ -565,7 +565,7 @@ const ProfileScreen = () => {
                     <Form.Label>Proficiency</Form.Label>
                     <Form.Control
                       type="number"
-                      placeholder="Enter your proficiency (Rating out of 5)"
+                      placeholder="Enter your proficiency (Rating out of 4)"
                       value={skill.proficiency}
                       onChange={(e) => {
                         setSkills((prevSkills) => {
