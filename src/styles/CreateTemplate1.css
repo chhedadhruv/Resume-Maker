@@ -1,25 +1,99 @@
-.proficiency-circle {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-  }
+.transparent-card {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
 
-  .proficiency-circle li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
+.left-card {
+  background-color: #2c323d;
+  border-radius: 10px 0 0 10px;
+  padding: 20px;
+  margin: 0px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  
+}
 
-  .proficiency-circle li::before {
-    content: " ";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: black;
-    margin-right: 5px;
-  }
+.main-card {
+  background-color: #fff;
+  border-radius: 10px 0 0 10px;
+  padding: 0px;
+  margin: 0px;
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center;
+  align-items: center; */
+}
 
-  .empty-circle {
-    background: none;
-    border: 1px solid black;
-  }
+.right-card {
+  border-radius: 0 10px 10px 0;
+  padding: 0px;
+  margin: 0px;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+}
+
+.card-text-color {
+  color: #fff;
+}
+
+.user-img-color {
+  border: 1px solid #fff;
+}
+
+/* Add styles for the circles */
+.circle {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px; /* Add some spacing between circles */
+  border-radius: 50%;
+}
+
+.filled-light {
+  background-color: #fff; /* Add the color for filled circles */
+}
+
+.outline-light {
+  background-color: #595f6b; /* Add the border for outline circles */
+}
+
+.filled-dark {
+  background-color: #333; /* Add the color for filled circles */
+}
+
+.outline-dark {
+  background-color: #595f6b; /* Add the border for outline circles */
+}
+
+/* Adjust the styles for the language item */
+.language-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Style the circles container */
+.circles-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Style the circles container for skills */
+.skill-item .circles-container {
+  display: flex;
+  align-items: center;
+}

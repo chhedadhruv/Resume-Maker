@@ -67,12 +67,12 @@ const ProfileScreen = () => {
 
   const handleUpdateProfile = (e) => {
     e.preventDefault();
-    if (languages.some((lang) => lang.proficiency > 5)) {
-      setError('Proficiency value cannot be greater than 5.');
+    if (languages.some((lang) => lang.proficiency > 4)) {
+      setError('Proficiency value cannot be greater than 4.');
       return;
     }
-    if (skills.some((skill) => skill.proficiency > 5)) {
-      setError('Proficiency value cannot be greater than 5.');
+    if (skills.some((skill) => skill.proficiency > 4)) {
+      setError('Proficiency value cannot be greater than 4.');
       return;
     }
     const userDocRef = doc(firestore, 'users', user.uid);

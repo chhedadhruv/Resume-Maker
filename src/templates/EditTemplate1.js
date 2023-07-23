@@ -111,12 +111,12 @@ const EditTemplate1 = () => {
 
   const handleUpdateData = (e) => {
     e.preventDefault();
-    if (languages.some((lang) => lang.proficiency > 5)) {
-      setError("Proficiency value cannot be greater than 5.");
+    if (languages.some((lang) => lang.proficiency > 4)) {
+      setError("Proficiency value cannot be greater than 4.");
       return;
     }
-    if (skills.some((skill) => skill.proficiency > 5)) {
-      setError("Proficiency value cannot be greater than 5.");
+    if (skills.some((skill) => skill.proficiency > 4)) {
+      setError("Proficiency value cannot be greater than 4.");
       return;
     }
     const userDocRef = doc(firestore, "users", user.uid);
@@ -372,7 +372,7 @@ const EditTemplate1 = () => {
                     <Form.Label>Proficiency</Form.Label>
                     <Form.Control
                       type="number"
-                      placeholder="Enter proficiency"
+                      placeholder="Enter proficiency value (1-4)"
                       value={lang.proficiency}
                       onChange={(e) => {
                         const newLanguages = [...languages];
@@ -562,7 +562,7 @@ const EditTemplate1 = () => {
                           <Form.Label>Proficiency</Form.Label>
                           <Form.Control
                             type="number"
-                            placeholder="Enter proficiency"
+                            placeholder="Enter proficiency value (1-4)"
                             value={skill.proficiency}
                             onChange={(e) => {
                               const newSkills = [...skills];
