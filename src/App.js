@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Link, HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
