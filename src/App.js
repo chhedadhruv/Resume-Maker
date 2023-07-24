@@ -45,7 +45,7 @@ function App() {
       <Container>
         <Navbar.Brand>
           <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
-          SkillFlex
+          SkillFlex CV
           </Link>
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
